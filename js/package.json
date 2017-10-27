@@ -1,0 +1,14 @@
+{
+  "name": "js-kata",
+  "version": "0.1.0",
+  "description": "Javascript programming exercises",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^21.2.1"
+  }
+}
