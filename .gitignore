@@ -4,6 +4,7 @@
 *.sublime-*
 .idea/**
 .vscode/**
+**/bin
 
 # js
 js/node_modules
