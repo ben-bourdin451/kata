@@ -3,7 +3,7 @@ package cci
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestUniqueStr(t *testing.T) {
@@ -17,7 +17,32 @@ func TestUniqueStr(t *testing.T) {
 		got := uniqueStr(k)
 		got2 := uniqueStr2(k)
 
-		assert.Equal(t, got, v, "%v: got %v, want %v", k, got, v)
-		assert.Equal(t, got2, v, "%v: got %v, want %v", k, got, v)
+		require.Equal(t, got, v, "%v: got %v, want %v", k, got, v)
+		require.Equal(t, got2, v, "%v: got %v, want %v", k, got, v)
+	}
+}
+
+func TestCheckPerm(t *testing.T) {
+	cases := []struct {
+		s    string
+		t    string
+		want bool
+	}{
+		{"a", "asdfghlkqwe", true},
+		{"dfgh", "asdfghlkqwe", true},
+		{"asdfghlkqwe", "asdfghlkqwe", true},
+		{"asd", "asdfghlkqwe", true},
+		{"qwe", "asdfghlkqwe", true},
+
+		{"qweg", "asdfghlkqwe", false},
+		{"kl", "asdfghlkqwe", false},
+		{"z", "asdfghlkqwe", false},
+		{"asdfghlkqwed", "asdfghlkqwe", false},
+	}
+
+	for _, c := range cases {
+		got := checkPerm(c.s, c.t)
+
+		require.Equal(t, got, c.want, "%v --> %v:\n got %v, want %v", c.s, c.t, got, c.want)
 	}
 }

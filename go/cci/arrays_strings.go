@@ -27,3 +27,22 @@ func uniqueStr2(in string) bool {
 	}
 	return true
 }
+
+// 1.2
+// Given two strings, write a method to decide if one is a permutation of the other.
+func checkPerm(s, t string) bool {
+	indexMatch := 0
+	for i := 0; i < len(t); i++ {
+		if t[i] == s[indexMatch] {
+			indexMatch++
+		} else {
+			indexMatch = 0
+		}
+
+		if indexMatch >= len(s) {
+			return true
+		}
+	}
+
+	return false
+}
