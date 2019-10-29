@@ -46,3 +46,22 @@ func TestCheckPerm(t *testing.T) {
 		require.Equal(t, got, c.want, "%v --> %v:\n got %v, want %v", c.s, c.t, got, c.want)
 	}
 }
+
+func TestUrlify(t *testing.T) {
+	cases := []struct {
+		s    string
+		want string
+	}{
+		{"Mr John Smith", "Mr%20John%20Smith"},
+		{"MrJohnSmith", "MrJohnSmith"},
+		{"MrJohnSmith ", "MrJohnSmith%20"},
+		{" MrJohnSmith", "%20MrJohnSmith"},
+		{" MrJohnSmith ", "%20MrJohnSmith%20"},
+	}
+
+	for _, c := range cases {
+		got := urlify(c.s)
+
+		require.Equal(t, got, c.want, "got %v, want %v", got, c.want)
+	}
+}
