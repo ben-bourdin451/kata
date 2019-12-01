@@ -65,3 +65,46 @@ func TestUrlify(t *testing.T) {
 		require.Equal(t, got, c.want, "got %v, want %v", got, c.want)
 	}
 }
+
+func TestPalindromePermutation(t *testing.T) {
+	cases := []struct {
+		s    string
+		want bool
+	}{
+		{"Tact Coa", true},
+		{"ttt", true},
+		{"tttaaaccc", true},
+		{"t t t a a a c c c", true},
+		{"xyz", false},
+		{"xyz abc", false},
+	}
+
+	for _, c := range cases {
+		got := palindromePermutation(c.s)
+
+		require.Equal(t, got, c.want, "case: %v\ngot %v, want %v", c.s, got, c.want)
+	}
+}
+
+func TestIsPalindrome(t *testing.T) {
+	cases := []struct {
+		s    string
+		want bool
+	}{
+		{"ttt", true},
+		{"taco cat", true},
+		{"atco cta", true},
+		{"tact coa", false},
+		{"tttaaaccc", false},
+		{"t t t a a a c c c", false},
+		{"xyz", false},
+		{"xyz%!*!%zyx", true},
+		{"xyz abc", false},
+	}
+
+	for _, c := range cases {
+		got := isPalindrome(c.s)
+
+		require.Equal(t, got, c.want, "case: %v\ngot %v, want %v", c.s, got, c.want)
+	}
+}

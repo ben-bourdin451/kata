@@ -69,3 +69,43 @@ func urlify(s string) string {
 	}
 	return r.String()
 }
+
+// 1.4 Palindrome Permutation
+// Given a string, write a function to check if it is a permutation of a palindrome.
+// A palindrome is a word or phrase that is the same forwards and backwards.
+// A permutation is a rearrangement of letters. The palindrome does not need to be
+// limited to just dictionary words.
+func palindromePermutation(s string) bool {
+	// for all permutations
+	for i := 0; i < len(s); i++ {
+
+	}
+	//   if palindrome return true
+
+	return false
+}
+
+func isPalindrome(s string) bool {
+	fi, bi := 0, len(s)-1
+
+	for fi < bi {
+		if string(s[fi]) == " " {
+			fi++
+			continue
+		}
+
+		if string(s[bi]) == " " {
+			bi--
+			continue
+		}
+
+		if strings.ToLower(string(s[fi])) != strings.ToLower(string(s[bi])) {
+			return false
+		}
+
+		fi++
+		bi--
+	}
+
+	return true
+}
