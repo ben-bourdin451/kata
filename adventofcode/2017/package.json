@@ -1,0 +1,14 @@
+{
+  "name": "advent2017",
+  "version": "0.1.0",
+  "description": "Advent of code 2017",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^21.2.1"
+  }
+}
