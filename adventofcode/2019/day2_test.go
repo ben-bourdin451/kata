@@ -40,11 +40,10 @@ func TestDay2Part2Final(t *testing.T) {
 		t.Error("Error while reading input", err)
 	}
 
-	noun, verb := day2Part2(in[0])
-	wantN, wantV := 59, 36
-	if noun != wantN || verb != wantV {
-		t.Errorf("got %v, want %v", noun, wantN)
-		t.Errorf("got %v, want %v", verb, wantV)
+	got := day2Part2(in[0])
+	want := 5936
+	if got != want {
+		t.Errorf("got %v, want %v", got, want)
 	}
-	fmt.Printf("Day 2, part 2 answer: %v %v\n", noun, verb)
+	fmt.Printf("Day 2, part 2 answer: %v\n", got)
 }

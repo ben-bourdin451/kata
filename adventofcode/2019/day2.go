@@ -19,27 +19,26 @@ func day2Part1(in string) int {
 }
 
 func intcode(codes []int) int {
-	for i := 0; i < len(codes); {
+	for i := 0; i < len(codes); i += 4 {
 		switch codes[i] {
 		case 1:
-			sum := codes[codes[i+1]] + codes[codes[i+2]]
-			codes[codes[i+3]] = sum
+			r := codes[codes[i+1]] + codes[codes[i+2]]
+			codes[codes[i+3]] = r
 			break
 
 		case 2:
-			sum := codes[codes[i+1]] * codes[codes[i+2]]
-			codes[codes[i+3]] = sum
+			r := codes[codes[i+1]] * codes[codes[i+2]]
+			codes[codes[i+3]] = r
 			break
 		case 99:
 			return codes[0]
 		}
-		i += 4
 	}
 
 	return codes[0]
 }
 
-func day2Part2(in string) (int, int) {
+func day2Part2(in string) int {
 	reg := strings.Split(in, ",")
 	codes := []int{}
 	for _, code := range reg {
@@ -56,10 +55,10 @@ func day2Part2(in string) (int, int) {
 			cp[2] = v
 			res := intcode(cp)
 			if res == 19690720 {
-				return n, v
+				return n*100 + v
 			}
 		}
 	}
 
-	return -1, -1
+	return 0
 }
