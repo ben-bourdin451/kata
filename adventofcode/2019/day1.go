@@ -15,6 +15,14 @@ func day1Part1(in []string) int {
 	return sum
 }
 
+func calculateMass(n int) int {
+	return int(math.Floor(float64(n)/3)) - 2
+}
+
+func day1Part2(in []string) int {
+	return totalMass(in)
+}
+
 func totalMass(in []string) int {
 	total := 0
 	for _, s := range in {
@@ -26,12 +34,4 @@ func totalMass(in []string) int {
 		total += mSum
 	}
 	return total
-}
-
-func calculateMass(n int) int {
-	return int(math.Floor(float64(n)/3)) - 2
-}
-
-func day1Part2(in []string) int {
-	return totalMass(in)
 }
