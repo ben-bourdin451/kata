@@ -35,12 +35,12 @@ func passwordMatch(p int, adjacent criteria) bool {
 		prev = digit
 	}
 
-	hasPair := false
+	r := false
 	for _, v := range digits {
 		if adjacent(v) {
-			hasPair = true
+			r = true
 		}
 	}
 
-	return hasPair
+	return r
 }
