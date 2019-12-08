@@ -90,7 +90,7 @@ func TestDay6Part2Final(t *testing.T) {
 	}
 
 	got := day6Part2(in)
-	want := 0
+	want := 343
 	if got != want {
 		t.Errorf("got %v, want %v", got, want)
 	}

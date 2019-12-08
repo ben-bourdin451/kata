@@ -6,8 +6,8 @@ import (
 
 type planet struct {
 	name      string
-	orbits    *planet
-	inOrbitOf *planet
+	orbits    []*planet
+	inOrbitOf []*planet
 }
 
 func (p planet) String() string {
@@ -15,26 +15,27 @@ func (p planet) String() string {
 }
 
 func (p *planet) orbitsAround(center *planet) {
-	p.orbits = center
-	center.inOrbitOf = p
+	p.orbits = append(p.orbits, center)
+	center.inOrbitOf = append(center.inOrbitOf, p)
 }
 
 func (p *planet) countOrbits() int {
 	sum := 0
-	for np := p.orbits; np != nil; np = np.orbits {
-		sum++
+	for _, orbits := range p.orbits {
+		sum += orbits.countOrbits() + 1
 	}
 	return sum
 }
 
 func (p *planet) getNeighbors() ([]graph, []float64) {
 	n, d := []graph{}, []float64{}
-	if p.orbits != nil {
-		n = append(n, p.orbits)
+
+	for _, p := range p.orbits {
+		n = append(n, p)
 		d = append(d, 1)
 	}
-	if p.inOrbitOf != nil {
-		n = append(n, p.inOrbitOf)
+	for _, p := range p.inOrbitOf {
+		n = append(n, p)
 		d = append(d, 1)
 	}
 
