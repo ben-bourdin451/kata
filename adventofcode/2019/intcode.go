@@ -7,35 +7,7 @@ import (
 	"strings"
 )
 
-func initCodes(in string) []int {
-	mem := strings.Split(in, ",")
-	codes := []int{}
-	for _, code := range mem {
-		n, _ := strconv.Atoi(code)
-		codes = append(codes, n)
-	}
-
-	return codes
-}
-
-// getDigitAt(9876, 1) --> 7
-func getDigitAt(in, d int) int {
-	return int(math.Floor(float64(in)/float64(math.Pow10(d)))) % 10
-}
-
-func getOpCode(in int) int {
-	return getDigitAt(in, 0) + getDigitAt(in, 1)*10
-}
-
-func getParam(codes []int, pos, mode int) int {
-	if mode == 1 {
-		return codes[pos]
-	}
-
-	return codes[codes[pos]]
-}
-
-func intcode(codes []int, input int) ([]int, []int) {
+func intcode(codes []int, input []int) ([]int, []int) {
 	output := []int{}
 	for i := 0; i < len(codes); {
 		if codes[i] == 99 {
@@ -59,7 +31,10 @@ func intcode(codes []int, input int) ([]int, []int) {
 
 		case 3: // input
 			// fmt.Println(i, codes[i:i+2])
-			codes[codes[i+1]] = input
+			if len(input) > 0 {
+				codes[codes[i+1]] = input[0]
+				input = input[1:]
+			}
 			i += 2
 			break
 
@@ -118,4 +93,32 @@ func intcode(codes []int, input int) ([]int, []int) {
 	}
 
 	return codes, output
+}
+
+func initCodes(in string) []int {
+	mem := strings.Split(in, ",")
+	codes := []int{}
+	for _, code := range mem {
+		n, _ := strconv.Atoi(code)
+		codes = append(codes, n)
+	}
+
+	return codes
+}
+
+// getDigitAt(9876, 1) --> 7
+func getDigitAt(in, d int) int {
+	return int(math.Floor(float64(in)/float64(math.Pow10(d)))) % 10
+}
+
+func getOpCode(in int) int {
+	return getDigitAt(in, 0) + getDigitAt(in, 1)*10
+}
+
+func getParam(codes []int, pos, mode int) int {
+	if mode == 1 {
+		return codes[pos]
+	}
+
+	return codes[codes[pos]]
 }

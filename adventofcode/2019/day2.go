@@ -6,7 +6,7 @@ import (
 
 func day2Part1(in string) int {
 	codes := initCodes(in)
-	mem, _ := intcode(codes, 0)
+	mem, _ := intcode(codes, []int{0})
 	return mem[0]
 }
 
@@ -20,7 +20,7 @@ func day2Part2(in string) int {
 			reflect.Copy(reflect.ValueOf(cp), reflect.ValueOf(codes))
 			cp[1] = n
 			cp[2] = v
-			mem, _ := intcode(cp, 0)
+			mem, _ := intcode(cp, []int{0})
 			if mem[0] == 19690720 {
 				return n*100 + v
 			}

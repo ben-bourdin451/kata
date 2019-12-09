@@ -103,7 +103,7 @@ func TestIntcode(t *testing.T) {
 	}
 
 	for k, c := range cases {
-		_, output := intcode(c.mem, c.input)
+		_, output := intcode(c.mem, []int{c.input})
 		if len(output) < 1 || output[0] != c.want {
 			t.Errorf("%v got %v, want %v", k, output, c.want)
 		}
