@@ -2,6 +2,7 @@ package adventofcode
 
 import (
 	"math"
+	"reflect"
 )
 
 type graph interface {
@@ -51,4 +52,20 @@ func closest(unvisited []graph, dist map[graph]float64) int {
 	}
 
 	return index
+}
+
+func permutations(in []int, prefix []int) [][]int {
+	if len(in) == 0 {
+		return [][]int{prefix}
+	}
+
+	perms := [][]int{}
+	for i := range in {
+		cp := make([]int, len(in))
+		reflect.Copy(reflect.ValueOf(cp), reflect.ValueOf(in))
+		np := append(prefix, cp[i])
+		rem := append(cp[:i], cp[i+1:]...)
+		perms = append(perms, permutations(rem, np)...)
+	}
+	return perms
 }

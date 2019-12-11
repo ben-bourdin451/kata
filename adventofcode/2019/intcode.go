@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+// returns memory & output
 func intcode(codes []int, input []int) ([]int, []int) {
 	output := []int{}
 	for i := 0; i < len(codes); {
