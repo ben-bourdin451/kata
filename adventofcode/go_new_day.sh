@@ -12,8 +12,8 @@ touch $ifile
 cat <<EOT >> $cfile
 package adventofcode
 
-func day$1Part1(in []string) string {
-	return ""
+func day$1Part1(in []string) int {
+	return 0
 }
 
 func day$1Part2(in []string) int {
@@ -32,13 +32,13 @@ import (
 func TestDay$1Part1(t *testing.T) {
 	cases := []struct {
 		in   []string
-		want string
+		want int
 	}{
 		{
 			[]string{
 				"",
 			},
-			"",
+			0,
 		},
 	}
 
@@ -57,7 +57,7 @@ func TestDay$1Part1Final(t *testing.T) {
 	}
 
 	got := day$1Part1(in)
-	want := ""
+	want := 0
 	fmt.Printf("Day $1, part 1 answer: %v\n", got)
 	if got != want {
 		t.Errorf("got %v, want %v", got, want)

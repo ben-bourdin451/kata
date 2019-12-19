@@ -1,25 +1,8 @@
 package adventofcode
 
 import (
-	"bufio"
 	"math"
-	"os"
 )
-
-func readStrings(path string) ([]string, error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-
-	var in []string
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		in = append(in, scanner.Text())
-	}
-	return in, nil
-}
 
 type point struct {
 	x, y int
@@ -61,6 +44,10 @@ type bounds struct {
 	minY int
 	maxX int
 	maxY int
+}
+
+func newBounds() bounds {
+	return bounds{int(math.Inf(-1)), int(math.Inf(-1)), int(math.Inf(0)), int(math.Inf(0))}
 }
 
 func (b *bounds) contains(p point) bool {
