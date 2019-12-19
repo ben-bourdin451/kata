@@ -42,36 +42,36 @@ func TestDay7Part1Final(t *testing.T) {
 	}
 }
 
-func TestDay7Part2(t *testing.T) {
-	cases := []struct {
-		in   string
-		want int
-	}{
-		// 9,8,7,6,5
-		{"3,26,1001,26,-4,26,3,27,1002,27,2,27,1,27,26,27,4,27,1001,28,-1,28,1005,28,6,99,0,0,5", 139629729},
+// func TestDay7Part2(t *testing.T) {
+// 	cases := []struct {
+// 		in   string
+// 		want int
+// 	}{
+// 		// 9,8,7,6,5
+// 		{"3,26,1001,26,-4,26,3,27,1002,27,2,27,1,27,26,27,4,27,1001,28,-1,28,1005,28,6,99,0,0,5", 139629729},
 
-		// 9,7,8,5,6
-		{"3,52,1001,52,-5,52,3,53,1,52,56,54,1007,54,5,55,1005,55,26,1001,54,-5,54,1105,1,12,1,53,54,53,1008,54,0,55,1001,55,1,55,2,53,55,53,4,53,1001,56,-1,56,1005,56,6,99,0,0,0,0,10", 18216},
-	}
+// 		// 9,7,8,5,6
+// 		{"3,52,1001,52,-5,52,3,53,1,52,56,54,1007,54,5,55,1005,55,26,1001,54,-5,54,1105,1,12,1,53,54,53,1008,54,0,55,1001,55,1,55,2,53,55,53,4,53,1001,56,-1,56,1005,56,6,99,0,0,0,0,10", 18216},
+// 	}
 
-	for _, c := range cases {
-		got := day7Part2(c.in)
-		if got != c.want {
-			t.Errorf("got %v, want %v", got, c.want)
-		}
-	}
-}
+// 	for _, c := range cases {
+// 		got := day7Part2(c.in)
+// 		if got != c.want {
+// 			t.Errorf("got %v, want %v", got, c.want)
+// 		}
+// 	}
+// }
 
-func TestDay7Part2Final(t *testing.T) {
-	in, err := readStrings("./day7_input.txt")
-	if err != nil {
-		t.Error("Error while reading input", err)
-	}
+// func TestDay7Part2Final(t *testing.T) {
+// 	in, err := readStrings("./day7_input.txt")
+// 	if err != nil {
+// 		t.Error("Error while reading input", err)
+// 	}
 
-	got := day7Part2(in[0])
-	want := 0
-	if got != want {
-		t.Errorf("got %v, want %v", got, want)
-	}
-	fmt.Printf("Day 7, part 2 answer: %v\n", got)
-}
+// 	got := day7Part2(in[0])
+// 	want := 0
+// 	if got != want {
+// 		t.Errorf("got %v, want %v", got, want)
+// 	}
+// 	fmt.Printf("Day 7, part 2 answer: %v\n", got)
+// }

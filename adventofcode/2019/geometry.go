@@ -2,6 +2,7 @@ package adventofcode
 
 import (
 	"math"
+	"reflect"
 )
 
 type point struct {
@@ -37,6 +38,39 @@ func (p *point) distanceSum(coor []point) int {
 
 func (p *point) distance(p2 point) int {
 	return int(math.Abs(float64(p.x-p2.x)) + math.Abs(float64(p.y-p2.y)))
+}
+
+type vector struct {
+	x int
+	y int
+	n int
+}
+
+func newVector(p1, p2 point) vector {
+	if reflect.DeepEqual(p1, p2) {
+		return vector{0, 0, 0}
+	}
+
+	x := math.Abs(float64(p1.x - p2.x))
+	y := math.Abs(float64(p1.y - p2.y))
+
+	if x == 0 {
+		return vector{0, 1, int(y)}
+	}
+
+	if y == 0 {
+		return vector{1, 0, int(x)}
+	}
+
+	if x == y {
+		return vector{1, 1, int(x)}
+	}
+
+	if x > y {
+		return vector{}
+	}
+
+	return vector{0, 0, 0}
 }
 
 type bounds struct {
