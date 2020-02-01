@@ -49,36 +49,36 @@ func TestIntcode(t *testing.T) {
 		input int
 		want  int
 	}{
-		// "position equal to 8 ? 1 : 0": {
-		// 	[]int{3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8},
-		// 	8,
-		// 	1,
-		// },
-		// "immediate equal to 8 ? 1 : 0": {
-		// 	[]int{3, 3, 1108, -1, 8, 3, 4, 3, 99},
-		// 	8,
-		// 	1,
-		// },
-		// "position less than 8 ? 1 : 0": {
-		// 	[]int{3, 9, 7, 9, 10, 9, 4, 9, 99, -1, 8},
-		// 	7,
-		// 	1,
-		// },
-		// "immediate less than 8 ? 1 : 0": {
-		// 	[]int{3, 3, 1107, -1, 8, 3, 4, 3, 99},
-		// 	7,
-		// 	1,
-		// },
-		// "position jump-if-false if in == 0 ? 0 : 1": {
-		// 	[]int{3, 12, 6, 12, 15, 1, 13, 14, 13, 4, 13, 99, -1, 0, 1, 9},
-		// 	21,
-		// 	1,
-		// },
-		// "immediate jump-if-true if in == 0 ? 0 : 1": {
-		// 	[]int{3, 3, 1105, -1, 9, 1101, 0, 0, 12, 4, 12, 99, 1},
-		// 	0,
-		// 	0,
-		// },
+		"position equal to 8 ? 1 : 0": {
+			[]int{3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8},
+			8,
+			1,
+		},
+		"immediate equal to 8 ? 1 : 0": {
+			[]int{3, 3, 1108, -1, 8, 3, 4, 3, 99},
+			8,
+			1,
+		},
+		"position less than 8 ? 1 : 0": {
+			[]int{3, 9, 7, 9, 10, 9, 4, 9, 99, -1, 8},
+			7,
+			1,
+		},
+		"immediate less than 8 ? 1 : 0": {
+			[]int{3, 3, 1107, -1, 8, 3, 4, 3, 99},
+			7,
+			1,
+		},
+		"position jump-if-false if in == 0 ? 0 : 1": {
+			[]int{3, 12, 6, 12, 15, 1, 13, 14, 13, 4, 13, 99, -1, 0, 1, 9},
+			21,
+			1,
+		},
+		"immediate jump-if-true if in == 0 ? 0 : 1": {
+			[]int{3, 3, 1105, -1, 9, 1101, 0, 0, 12, 4, 12, 99, 1},
+			0,
+			0,
+		},
 		"in < 8 --> 999": {
 			[]int{3, 21, 1008, 21, 8, 20, 1005, 20, 22, 107, 8, 21, 20, 1006, 20, 31,
 				1106, 0, 36, 98, 0, 0, 1002, 21, 125, 20, 4, 20, 1105, 1, 46, 104,
@@ -103,8 +103,10 @@ func TestIntcode(t *testing.T) {
 	}
 
 	for k, c := range cases {
-		_, output := intcode(c.mem, []int{c.input})
-		if len(output) < 1 || output[0] != c.want {
+		in, out := make(chan int, 1), make(chan int)
+		in <- c.input
+		intcode(c.mem, in, out)
+		if output := <-out; output != c.want {
 			t.Errorf("%v got %v, want %v", k, output, c.want)
 		}
 	}

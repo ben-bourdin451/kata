@@ -7,93 +7,88 @@ import (
 	"strings"
 )
 
-// returns memory & output
-func intcode(codes []int, input []int) ([]int, []int) {
-	output := []int{}
-	for i := 0; i < len(codes); {
-		if codes[i] == 99 {
-			return codes, output
+// Takes initial memory alongside input & output channels
+// Modifies memory (intended side effect, non-purity)
+func intcode(mem []int, in <-chan int, out chan<- int) {
+	for i := 0; i < len(mem); {
+		if mem[i] == 99 {
+			return
 		}
-		_, b, c := getDigitAt(codes[i], 4), getDigitAt(codes[i], 3), getDigitAt(codes[i], 2)
-		op := getOpCode(codes[i])
+		_, b, c := getDigitAt(mem[i], 4), getDigitAt(mem[i], 3), getDigitAt(mem[i], 2)
+		op := getOpCode(mem[i])
 
 		switch op {
 		case 1: // add
-			// fmt.Println(i, codes[i:i+4])
-			codes[codes[i+3]] = getParam(codes, i+1, c) + getParam(codes, i+2, b)
+			// fmt.Println(i, mem[i:i+4])
+			mem[mem[i+3]] = getParam(mem, i+1, c) + getParam(mem, i+2, b)
 			i += 4
 			break
 
 		case 2: // multiply
-			// fmt.Println(i, codes[i:i+4])
-			codes[codes[i+3]] = getParam(codes, i+1, c) * getParam(codes, i+2, b)
+			// fmt.Println(i, mem[i:i+4])
+			mem[mem[i+3]] = getParam(mem, i+1, c) * getParam(mem, i+2, b)
 			i += 4
 			break
 
 		case 3: // input
-			// fmt.Println(i, codes[i:i+2])
-			if len(input) > 0 {
-				codes[codes[i+1]] = input[0]
-				input = input[1:]
-			}
+			// fmt.Println(i, mem[i:i+2])
+			mem[mem[i+1]] = <-in
 			i += 2
 			break
 
 		case 4: // output
-			// fmt.Println(i, codes[i:i+2])
-			output = append(output, getParam(codes, i+1, c))
+			// fmt.Println(i, mem[i:i+2])
+			out <- getParam(mem, i+1, c)
 			i += 2
 			break
 
 		case 5: // jump-if-true
-			// fmt.Println(i, codes[i:i+3])
-			if getParam(codes, i+1, c) != 0 {
-				// fmt.Println("i -->", getParam(codes, i+2, b))
-				i = getParam(codes, i+2, b)
+			// fmt.Println(i, mem[i:i+3])
+			if getParam(mem, i+1, c) != 0 {
+				// fmt.Println("i -->", getParam(mem, i+2, b))
+				i = getParam(mem, i+2, b)
 			} else {
 				i += 3
 			}
 			break
 
 		case 6: // jump-if-false
-			// fmt.Println(i, codes[i:i+3])
-			if getParam(codes, i+1, c) == 0 {
-				// fmt.Println("i -->", getParam(codes, i+2, b))
-				i = getParam(codes, i+2, b)
+			// fmt.Println(i, mem[i:i+3])
+			if getParam(mem, i+1, c) == 0 {
+				// fmt.Println("i -->", getParam(mem, i+2, b))
+				i = getParam(mem, i+2, b)
 			} else {
 				i += 3
 			}
 			break
 
 		case 7: // less-than
-			// fmt.Println(i, codes[i:i+4])
-			// fmt.Println(getParam(codes, i+1, c), "<", getParam(codes, i+2, b), "-->", codes[codes[i+3]])
-			if getParam(codes, i+1, c) < getParam(codes, i+2, b) {
-				codes[codes[i+3]] = 1
+			// fmt.Println(i, mem[i:i+4])
+			// fmt.Println(getParam(mem, i+1, c), "<", getParam(mem, i+2, b), "-->", mem[mem[i+3]])
+			if getParam(mem, i+1, c) < getParam(mem, i+2, b) {
+				mem[mem[i+3]] = 1
 			} else {
-				codes[codes[i+3]] = 0
+				mem[mem[i+3]] = 0
 			}
 			i += 4
 			break
 
 		case 8: // equals
-			// fmt.Println(i, codes[i:i+4])
-			// fmt.Println(getParam(codes, i+1, c), "==", getParam(codes, i+2, b), "-->", codes[codes[i+3]])
-			if getParam(codes, i+1, c) == getParam(codes, i+2, b) {
-				codes[codes[i+3]] = 1
+			// fmt.Println(i, mem[i:i+4])
+			// fmt.Println(getParam(mem, i+1, c), "==", getParam(mem, i+2, b), "-->", mem[mem[i+3]])
+			if getParam(mem, i+1, c) == getParam(mem, i+2, b) {
+				mem[mem[i+3]] = 1
 			} else {
-				codes[codes[i+3]] = 0
+				mem[mem[i+3]] = 0
 			}
 			i += 4
 			break
 
 		default:
 			fmt.Println("unknown op", op)
-			return codes, output
+			return
 		}
 	}
-
-	return codes, output
 }
 
 func initCodes(in string) []int {

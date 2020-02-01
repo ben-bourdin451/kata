@@ -4,14 +4,21 @@ import (
 	"reflect"
 )
 
-func day2Part1(in string) int {
-	codes := initCodes(in)
-	mem, _ := intcode(codes, []int{0})
+func day2Part1(argv string) int {
+	mem := initCodes(argv)
+	input := make(chan int, 1)
+	defer close(input)
+	input <- 0
+	intcode(mem, input, nil)
+
 	return mem[0]
 }
 
-func day2Part2(in string) int {
-	codes := initCodes(in)
+func day2Part2(argv string) int {
+	codes := initCodes(argv)
+	input := make(chan int, 1)
+	defer close(input)
+	input <- 0
 
 	max := 100
 	for n := 0; n < max; n++ {
@@ -20,12 +27,11 @@ func day2Part2(in string) int {
 			reflect.Copy(reflect.ValueOf(cp), reflect.ValueOf(codes))
 			cp[1] = n
 			cp[2] = v
-			mem, _ := intcode(cp, []int{0})
-			if mem[0] == 19690720 {
+			intcode(cp, input, nil)
+			if cp[0] == 19690720 {
 				return n*100 + v
 			}
 		}
 	}
-
 	return 0
 }
