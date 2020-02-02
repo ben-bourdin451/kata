@@ -104,8 +104,8 @@ func TestIntcode(t *testing.T) {
 
 	for k, c := range cases {
 		in, out := make(chan int, 1), make(chan int)
+		go intcode(c.mem, in, out)
 		in <- c.input
-		intcode(c.mem, in, out)
 		if output := <-out; output != c.want {
 			t.Errorf("%v got %v, want %v", k, output, c.want)
 		}

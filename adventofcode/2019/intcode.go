@@ -32,12 +32,14 @@ func intcode(mem []int, in <-chan int, out chan<- int) {
 
 		case 3: // input
 			// fmt.Println(i, mem[i:i+2])
+			// fmt.Println("waiting for input")
 			mem[mem[i+1]] = <-in
 			i += 2
 			break
 
 		case 4: // output
 			// fmt.Println(i, mem[i:i+2])
+			// fmt.Println("sending output")
 			out <- getParam(mem, i+1, c)
 			i += 2
 			break
