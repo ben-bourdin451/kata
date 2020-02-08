@@ -8,7 +8,7 @@ import (
 func TestDay7Part1(t *testing.T) {
 	cases := []struct {
 		in   string
-		want int
+		want int64
 	}{
 		// 4,3,2,1,0
 		{"3,15,3,16,1002,16,10,16,1,16,15,15,4,15,99,0,0", 43210},
@@ -35,7 +35,7 @@ func TestDay7Part1Final(t *testing.T) {
 	}
 
 	got := day7Part1(in[0])
-	want := 437860
+	want := int64(437860)
 	fmt.Printf("Day 7, part 1 answer: %v\n", got)
 	if got != want {
 		t.Errorf("got %v, want %v", got, want)
@@ -45,7 +45,7 @@ func TestDay7Part1Final(t *testing.T) {
 func TestDay7Part2(t *testing.T) {
 	cases := []struct {
 		in   string
-		want int
+		want int64
 	}{
 		// 9,8,7,6,5
 		{"3,26,1001,26,-4,26,3,27,1002,27,2,27,1,27,26,27,4,27,1001,28,-1,28,1005,28,6,99,0,0,5", 139629729},
@@ -69,7 +69,7 @@ func TestDay7Part2Final(t *testing.T) {
 	}
 
 	got := day7Part2(in[0])
-	want := 49810599
+	want := int64(49810599)
 	if got != want {
 		t.Errorf("got %v, want %v", got, want)
 	}

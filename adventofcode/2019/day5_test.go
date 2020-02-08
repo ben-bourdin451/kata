@@ -12,7 +12,7 @@ func TestDay5Part1Final(t *testing.T) {
 	}
 
 	got := day5(in[0], 1)
-	want := 15508323
+	want := int64(15508323)
 	fmt.Printf("Day 5, part 1 answer: %v\n", got)
 	if got != want {
 		t.Errorf("got %v, want %v", got, want)
@@ -26,7 +26,7 @@ func TestDay5Part2Final(t *testing.T) {
 	}
 
 	got := day5(in[0], 5)
-	want := 9006327
+	want := int64(9006327)
 	if got != want {
 		t.Errorf("got %v, want %v", got, want)
 	}

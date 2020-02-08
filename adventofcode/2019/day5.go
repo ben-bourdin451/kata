@@ -1,9 +1,8 @@
 package adventofcode
 
-func day5(mem string, argv int) int {
+func day5(mem string, argv int64) int64 {
 	memory := initCodes(mem)
-	in, out := make(chan int, 1), make(chan int)
-	defer close(out)
+	in, out := make(chan int64, 1), make(chan int64)
 	go intcode(memory, in, out)
 	in <- argv
 	close(in)
