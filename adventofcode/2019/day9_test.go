@@ -47,36 +47,15 @@ func TestDay9Part1Final(t *testing.T) {
 	}
 }
 
-func TestDay9Part2(t *testing.T) {
-	cases := []struct {
-		in   []string
-		want int
-	}{
-		{
-			[]string{
-				"",
-			},
-			0,
-		},
-	}
-
-	for _, c := range cases {
-		got := day9Part2(c.in)
-		if got != c.want {
-			t.Errorf("got %v, want %v", got, c.want)
-		}
-	}
-}
-
 func TestDay9Part2Final(t *testing.T) {
 	in, err := readStrings("./day9_input.txt")
 	if err != nil {
 		t.Error("Error while reading input", err)
 	}
 
-	got := day9Part2(in)
-	want := 0
-	if got != want {
+	got := day9Part2(in[0])
+	want := []int64{0}
+	if !reflect.DeepEqual(got, want) {
 		t.Errorf("got %v, want %v", got, want)
 	}
 	fmt.Printf("Day 9, part 2 answer: %v\n", got)
