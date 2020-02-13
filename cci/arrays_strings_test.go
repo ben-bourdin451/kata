@@ -126,3 +126,22 @@ func TestReverse(t *testing.T) {
 		require.Equal(t, got, c.want, "got %v, want %v", got, c.want)
 	}
 }
+
+func TestMergeSortedArrays(t *testing.T) {
+	cases := []struct {
+		a, b []int
+		want []int
+	}{
+		{nil, nil, []int{}},
+		{[]int{}, nil, []int{}},
+		{[]int{}, []int{}, []int{}},
+		{[]int{}, []int{4, 6, 30}, []int{4, 6, 30}},
+		{[]int{0, 3, 4, 31}, []int{4, 6, 30}, []int{0, 3, 4, 4, 6, 30, 31}},
+	}
+
+	for _, c := range cases {
+		got := mergeSortedArrays(c.a, c.b)
+
+		require.Equal(t, c.want, got, "got %v, want %v", got, c.want)
+	}
+}

@@ -120,3 +120,26 @@ func reverse(str string) string {
 
 	return b.String()
 }
+
+func mergeSortedArrays(a, b []int) []int {
+	m := []int{}
+	for i, j := 0, 0; i < len(a) || j < len(b); {
+		if i >= len(a) {
+			m = append(m, b[j:]...)
+			break
+		} else if j >= len(b) {
+			m = append(m, a[i:]...)
+			break
+		}
+
+		if a[i] <= b[j] {
+			m = append(m, a[i])
+			i++
+		} else if b[j] < a[i] {
+			m = append(m, b[j])
+			j++
+		}
+	}
+
+	return m
+}
