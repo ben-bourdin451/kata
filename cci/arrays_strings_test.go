@@ -108,3 +108,21 @@ func TestIsPalindrome(t *testing.T) {
 		require.Equal(t, got, c.want, "case: %v\ngot %v, want %v", c.s, got, c.want)
 	}
 }
+
+func TestReverse(t *testing.T) {
+	cases := []struct {
+		s    string
+		want string
+	}{
+		{"", ""},
+		{"a", "a"},
+		{"ab", "ba"},
+		{"Mr John Smith", "htimS nhoJ rM"},
+	}
+
+	for _, c := range cases {
+		got := reverse(c.s)
+
+		require.Equal(t, got, c.want, "got %v, want %v", got, c.want)
+	}
+}

@@ -109,3 +109,14 @@ func isPalindrome(s string) bool {
 
 	return true
 }
+
+// Extra
+func reverse(str string) string {
+	l, b := len(str), strings.Builder{}
+	b.Grow(l)
+	for i := l - 1; i >= 0; i-- {
+		b.WriteByte(str[i])
+	}
+
+	return b.String()
+}
