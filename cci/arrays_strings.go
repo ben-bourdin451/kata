@@ -1,6 +1,7 @@
 package cci
 
 import (
+	"math"
 	"strings"
 )
 
@@ -120,6 +121,44 @@ func isPalindrome(s string) bool {
 		bi--
 	}
 
+	return true
+}
+
+// 1.5 One Away
+// There are three types of edits that can be performed on strings:
+// insert a character, remove a character, or replace a character.
+// Given two strings, write a function to check if they are one edit (or zero edits) away.
+func oneAway(s1, s2 string) bool {
+	if math.Abs(float64(len(s1)-len(s2))) > 1 {
+		return false
+	}
+
+	for i := 0; i < len(s1) && i < len(s2); i++ {
+		if s1[i] != s2[i] {
+			// add
+			sa1 := s1[:i] + string(s2[i]) + s1[i:]
+			sa2 := s2[:i] + string(s1[i]) + s2[i:]
+			if sa1 == s2 || sa2 == s1 {
+				return true
+			}
+
+			// remove
+			sd1 := s1[:i] + s1[i+1:]
+			sd2 := s2[:i] + s2[i+1:]
+			if sd1 == s2 || sd2 == s1 {
+				return true
+			}
+
+			// replace
+			sr1 := s1[:i] + string(s2[i]) + s1[i+1:]
+			sr2 := s2[:i] + string(s1[i]) + s2[i+1:]
+			if sr1 == s2 || sr2 == s1 {
+				return true
+			}
+
+			return false
+		}
+	}
 	return true
 }
 

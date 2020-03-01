@@ -127,6 +127,27 @@ func TestIsPalindromePerm(t *testing.T) {
 	}
 }
 
+func TestOneAway(t *testing.T) {
+	cases := []struct {
+		s1, s2 string
+		want   bool
+	}{
+		{"pale", "pale", true},
+		{"pale", "ple", true},
+		{"pale", "paale", true},
+		{"pales", "pale", true},
+		{"pale", "bale", true},
+		{"pale", "bake", false},
+		{"pale", "paless", false},
+	}
+
+	for _, c := range cases {
+		got := oneAway(c.s1, c.s2)
+		require.Equal(t, c.want, got, "%s, %s --> got %v, want %v", c.s1, c.s2, got, c.want)
+	}
+}
+
+// Extra
 func TestReverse(t *testing.T) {
 	cases := []struct {
 		s    string
