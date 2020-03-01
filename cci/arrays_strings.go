@@ -77,12 +77,25 @@ func urlify(s string) string {
 // limited to just dictionary words.
 func palindromePermutation(s string) bool {
 	// for all permutations
-	for i := 0; i < len(s); i++ {
-
+	ccount := make(map[rune]int)
+	for _, c := range s {
+		if c != ' ' {
+			ccount[c]++
+		}
 	}
-	//   if palindrome return true
 
-	return false
+	// more than 1 odd char means this cannot be a palindrome
+	odd := 0
+	for _, v := range ccount {
+		if v%2 != 0 {
+			odd++
+			if odd > 1 {
+				return false
+			}
+		}
+	}
+
+	return true
 }
 
 func isPalindrome(s string) bool {
