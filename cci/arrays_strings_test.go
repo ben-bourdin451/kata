@@ -71,10 +71,11 @@ func TestPalindromePermutation(t *testing.T) {
 		s    string
 		want bool
 	}{
-		{"Tact Coa", true},
+		{"tact coa", true},
 		{"ttt", true},
-		{"tttaaaccc", true},
-		{"t t t a a a c c c", true},
+		{"tttaaaccc", false},
+		{"aaattcc", true},
+		{"t t t a a c c ", true},
 		{"xyz", false},
 		{"xyz abc", false},
 	}
@@ -106,23 +107,6 @@ func TestIsPalindrome(t *testing.T) {
 	for _, c := range cases {
 		got := isPalindrome(c.s)
 
-		require.Equal(t, got, c.want, "case: %v\ngot %v, want %v", c.s, got, c.want)
-	}
-}
-
-func TestIsPalindromePerm(t *testing.T) {
-	cases := []struct {
-		s    string
-		want bool
-	}{
-		{"ttt", true},
-		{"tact coa", true},
-		{"aaattcc", true},
-		{"tttaaaccc", false},
-	}
-
-	for _, c := range cases {
-		got := palindromePermutation(c.s)
 		require.Equal(t, got, c.want, "case: %v\ngot %v, want %v", c.s, got, c.want)
 	}
 }
