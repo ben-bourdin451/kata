@@ -147,6 +147,19 @@ func TestOneAway(t *testing.T) {
 	}
 }
 
+func TestCompressString(t *testing.T) {
+	cases := map[string]string{
+		"aabcccccaaa":  "a2b1c5a3",
+		"aabbccccddee": "a2b2c4d2e2",
+		"abc":          "abc",
+	}
+
+	for in, want := range cases {
+		got := compressString(in)
+		require.Equal(t, want, got, "%s: got %s, want %s", in, got, want)
+	}
+}
+
 // Extra
 func TestReverse(t *testing.T) {
 	cases := []struct {
