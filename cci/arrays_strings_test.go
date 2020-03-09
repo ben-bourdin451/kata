@@ -144,6 +144,45 @@ func TestCompressString(t *testing.T) {
 	}
 }
 
+// 1.7
+func TestRotateMatrix(t *testing.T) {
+	cases := []struct {
+		in   [][]int
+		want [][]int
+	}{
+		{
+			[][]int{
+				[]int{1, 2, 3},
+				[]int{4, 5, 6},
+				[]int{7, 8, 9},
+			},
+			[][]int{
+				[]int{7, 4, 1},
+				[]int{8, 5, 2},
+				[]int{9, 6, 3},
+			},
+		}, {
+			[][]int{
+				[]int{1, 2, 3, 10},
+				[]int{4, 5, 6, 11},
+				[]int{7, 8, 9, 12},
+				[]int{13, 14, 15, 16},
+			},
+			[][]int{
+				[]int{13, 7, 4, 1},
+				[]int{14, 8, 5, 2},
+				[]int{15, 9, 6, 3},
+				[]int{16, 12, 11, 10},
+			},
+		},
+	}
+
+	for _, c := range cases {
+		got := rotateMatrix(c.in)
+		require.Equal(t, c.want, got, "%s: got %s, want %s", c.in, got, c.want)
+	}
+}
+
 // Extra
 func TestReverse(t *testing.T) {
 	cases := []struct {

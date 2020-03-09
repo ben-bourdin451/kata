@@ -194,6 +194,25 @@ func compressString(s string) string {
 	return r.String()
 }
 
+// 1.7 Rotate Matrix
+// Given an image represented by an NxN matrix, where each pixel in the image is 4
+// bytes, write a method to rotate the image by 90 degrees. Can you do this in place?
+func rotateMatrix(m [][]int) [][]int {
+	res := make([][]int, len(m))
+	for i := range res {
+		res[i] = make([]int, len(m))
+	}
+
+	for y := range m {
+		rx := len(m) - 1 - y
+		for x := range m {
+			res[x][rx] = m[y][x]
+		}
+	}
+
+	return res
+}
+
 // Extra
 func reverse(str string) string {
 	l, b := len(str), strings.Builder{}
