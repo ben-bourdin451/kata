@@ -1,27 +1,21 @@
 package cci
 
 // Bubble sort
-func bubbleSort(q []int) []int {
-	r := make([]int, len(q))
-	copy(r, q)
-	if len(q) <= 1 {
-		return r
-	}
-
+func bubbleSort(arr []int) {
 	for {
 		swapped := false
 
-		for i := 0; i < len(r)-1; i++ {
-			if r[i] > r[i+1] {
-				temp := r[i]
-				r[i] = r[i+1]
-				r[i+1] = temp
+		for i := 0; i < len(arr)-1; i++ {
+			if arr[i] > arr[i+1] {
+				temp := arr[i]
+				arr[i] = arr[i+1]
+				arr[i+1] = temp
 				swapped = true
 			}
 		}
 
 		if !swapped {
-			return r
+			return
 		}
 	}
 }

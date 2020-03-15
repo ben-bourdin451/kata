@@ -21,7 +21,9 @@ func TestBubbleSort(t *testing.T) {
 	}
 
 	for _, c := range cases {
-		got := bubbleSort(c.in)
-		require.Equal(t, c.want, got, "Sort it out!")
+		in := make([]int, len(c.in))
+		copy(in, c.in)
+		bubbleSort(in)
+		require.Equal(t, c.want, in, "Sort it out!")
 	}
 }
