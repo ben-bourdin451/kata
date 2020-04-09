@@ -37,10 +37,6 @@ func (b *hullbot) getColor() int {
 	return black
 }
 
-// func (b *hullbot) paint(c int) {
-// 	b.painted[b.pos] = c
-// }
-
 func (b *hullbot) start(mem []int64, done chan bool) {
 	in, out := make(chan int64, 1), make(chan int64)
 

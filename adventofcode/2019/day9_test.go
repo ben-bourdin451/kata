@@ -54,7 +54,7 @@ func TestDay9Part2Final(t *testing.T) {
 	}
 
 	got := day9Part2(in[0])
-	want := []int64{0}
+	want := []int64{66772}
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("got %v, want %v", got, want)
 	}
