@@ -66,7 +66,7 @@ func day8Part2(in string, w, h int) {
 				if l.img[y][x] != 2 {
 					img[y][x] = l.img[y][x]
 					if img[y][x] == 1 {
-						fmt.Print(".")
+						fmt.Print("*")
 					} else {
 						fmt.Print(" ")
 					}

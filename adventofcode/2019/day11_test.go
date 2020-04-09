@@ -19,37 +19,12 @@ func TestDay11Part1Final(t *testing.T) {
 	}
 }
 
-func TestDay11Part2(t *testing.T) {
-	cases := []struct {
-		in   []string
-		want int
-	}{
-		{
-			[]string{
-				"",
-			},
-			0,
-		},
-	}
-
-	for _, c := range cases {
-		got := day11Part2(c.in)
-		if got != c.want {
-			t.Errorf("got %v, want %v", got, c.want)
-		}
-	}
-}
-
 func TestDay11Part2Final(t *testing.T) {
 	in, err := readStrings("./day11_input.txt")
 	if err != nil {
 		t.Error("Error while reading input", err)
 	}
 
-	got := day11Part2(in)
-	want := 0
-	if got != want {
-		t.Errorf("got %v, want %v", got, want)
-	}
-	fmt.Printf("Day 11, part 2 answer: %v\n", got)
+	fmt.Println("Day 11, part 2 answer:")
+	day11Part2(in[0])
 }

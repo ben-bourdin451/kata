@@ -1,5 +1,7 @@
 package adventofcode
 
+import "fmt"
+
 const (
 	black = 0
 	white = 1
@@ -7,12 +9,13 @@ const (
 
 type hullbot struct {
 	pos       point
+	b         bounds
 	direction int
 	painted   map[point]int
 }
 
 func newHullbot() hullbot {
-	return hullbot{point{0, 0}, up, make(map[point]int)}
+	return hullbot{point{0, 0}, bounds{0, 0, 0, 0}, up, make(map[point]int)}
 }
 
 func (b *hullbot) turnLeft() {
@@ -37,11 +40,23 @@ func (b *hullbot) getColor() int {
 	return black
 }
 
-func (b *hullbot) start(mem []int64, done chan bool) {
-	in, out := make(chan int64, 1), make(chan int64)
+func (b *hullbot) paint() {
+	for y := b.b.minY; y <= b.b.maxY; y++ {
+		for x := b.b.minX; x <= b.b.maxX; x++ {
+			if color, ok := b.painted[point{x, y}]; ok && color == 1 {
+				fmt.Print("*")
+			} else {
+				fmt.Print(" ")
+			}
+		}
+		fmt.Println()
+	}
+}
+
+func (b *hullbot) start(mem []int64, in chan int64, done chan bool) {
+	out := make(chan int64)
 
 	go intcode(mem, in, out)
-	in <- 0                  // send black as 1st input
 	for color := range out { // wait until intcode halts (out chan is closed)
 		b.painted[b.pos] = int(color)
 		newDir := <-out
@@ -51,6 +66,7 @@ func (b *hullbot) start(mem []int64, done chan bool) {
 			b.turnRight()
 		}
 		b.pos = b.pos.nextPoint(b.direction, 1)
+		b.b.update(b.pos)
 		in <- int64(b.getColor())
 	}
 
@@ -61,14 +77,24 @@ func day11Part1(argv string) int {
 	mem := initCodes(argv)
 
 	bot := newHullbot()
-	done := make(chan bool, 1)
-	bot.start(mem, done)
+	in, done := make(chan int64, 1), make(chan bool, 1)
+	in <- 0 // send black as 1st input
+	bot.start(mem, in, done)
 
 	<-done // wait for bot to be finished
 
 	return len(bot.painted)
 }
 
-func day11Part2(in []string) int {
-	return 0
+func day11Part2(argv string) {
+	mem := initCodes(argv)
+
+	bot := newHullbot()
+	in, done := make(chan int64, 1), make(chan bool, 1)
+	in <- 1 // send white as 1st input
+	bot.start(mem, in, done)
+
+	<-done // wait for bot to be finished
+
+	bot.paint()
 }
