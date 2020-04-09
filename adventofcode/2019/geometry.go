@@ -5,6 +5,13 @@ import (
 	"reflect"
 )
 
+const (
+	left  = 0
+	up    = 1
+	right = 2
+	down  = 3
+)
+
 type point struct {
 	x, y int
 }
@@ -38,6 +45,21 @@ func (p *point) distanceSum(coor []point) int {
 
 func (p *point) distance(p2 point) int {
 	return int(math.Abs(float64(p.x-p2.x)) + math.Abs(float64(p.y-p2.y)))
+}
+
+func (p *point) nextPoint(direction, dist int) point {
+	switch direction {
+	case left:
+		return point{p.x - dist, p.y}
+	case up:
+		return point{p.x, p.y - dist}
+	case right:
+		return point{p.x + dist, p.y}
+	case down:
+		return point{p.x, p.y + dist}
+	}
+
+	return point{-1, -1}
 }
 
 type vector struct {
